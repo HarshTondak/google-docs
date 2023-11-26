@@ -2,16 +2,12 @@ const mongoose = require("mongoose");
 const Document = require("./Document");
 const { dotenv } = require("dotenv").config();
 
-console.log(process.env.DATABASE);
-console.log(process.env.PORT);
-console.log(process.env.CLIENT_URL);
-
-mongoose.connect(`${process.env.DATABASE}`, {});
+mongoose.connect(process.env.DATABASE, {});
 const PORT = process.env.PORT || 8000;
 
 const io = require("socket.io")(PORT, {
   cors: {
-    origin: `${process.env.CLIENT_URL}`,
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST"],
   },
 });
