@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 const Document = require("./Document");
+const { dotenv } = require("dotenv").config();
 
-mongoose.connect(
-  "mongodb+srv://harshtondak007:1234%40Asdf@cluster0.wxfw4fo.mongodb.net/google-docs-clone?retryWrites=true&w=majority",
-  {}
-);
+console.log(process.env.DATABASE);
+console.log(process.env.PORT);
+console.log(process.env.CLIENT_URL);
 
-const io = require("socket.io")(8000, {
+mongoose.connect(`${process.env.DATABASE}`, {});
+const PORT = process.env.PORT || 8000;
+
+const io = require("socket.io")(PORT, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: `${process.env.CLIENT_URL}`,
     methods: ["GET", "POST"],
   },
 });

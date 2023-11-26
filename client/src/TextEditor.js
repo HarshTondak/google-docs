@@ -27,7 +27,8 @@ export default function TextEditor() {
 
   // Creating connection through socket
   useEffect(() => {
-    const s = io("http://localhost:8000");
+    // const s = io("http://localhost:8000");
+    const s = io(`${process.env.REACT_APP_SERVER_URL}`);
     setSocket(s);
 
     return () => {
@@ -50,6 +51,7 @@ export default function TextEditor() {
     socket.emit("get-document", documentId);
   }, [socket, quill, documentId]);
 
+  // Saving the document in MongoDB
   useEffect(() => {
     if (socket == null || quill == null) return;
 
